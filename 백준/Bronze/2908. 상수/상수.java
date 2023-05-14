@@ -5,25 +5,15 @@ import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        int a,b;
+        int a, b;
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
-        sb.append(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        StringTokenizer st = new StringTokenizer(sb.reverse().toString());
+        a = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
+        b = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
 
-        sb.delete(0,sb.length());
-
-        a = Integer.parseInt(st.nextToken());
-        b = Integer.parseInt(st.nextToken());
-
-        if(a>b)
-            sb.append(a);
-        else
-            sb.append(b);
-
-        System.out.println(sb);
+        System.out.println((a>b)?a:b);
     }
 }
