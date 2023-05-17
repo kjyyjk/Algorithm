@@ -1,12 +1,14 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         int[] arr;
         int i;
         int ind = 0;
-        int count = 0;
         int max = 0;
+        char c= '?';
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String s = br.readLine();
@@ -26,22 +28,15 @@ public class Main {
         for(i=0; i<arr.length; i++){
             if(arr[i]>max) {
                 max = arr[i];
-                ind = i;
+                c = (char)(i+65);
             }
-        }
-
-        for(i=0; i<arr.length; i++){
-            if(arr[i]==max)
-                count++;
+            else if(arr[i]==max)
+                c = '?';
         }
 
         StringBuilder sb = new StringBuilder();
 
-        if(count>1)
-            sb.append("?");
-        else {
-            sb.append((char)(ind+65));
-        }
+        sb.append(c);
 
         System.out.println(sb);
     }
