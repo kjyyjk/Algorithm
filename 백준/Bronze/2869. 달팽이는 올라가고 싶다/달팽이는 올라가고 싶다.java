@@ -14,6 +14,9 @@ public class Main {
         int v = Integer.parseInt(st.nextToken());
 
         int result = (int)Math.ceil((double)(v-b)/(a-b));
-        System.out.println(result);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(result);
+        System.out.println(sb);
     }
 }
