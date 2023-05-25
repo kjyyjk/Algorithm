@@ -11,27 +11,31 @@ public class Main {
 
         int min = n;
         int hap = 0;
-        int count;
+        int count=0;
+        int j;
 
         for(int i = m; i<n+1; i++){
-            count = 0;
-            for(int j = 1; j<i+1; j++){
+            //1과 i 자기 자신 제외하고 약수 나오면 break
+            for(j = 2; j<i; j++){
                 if(i%j==0)
-                    count++;
+                    break;
             }
 
-            if(count==2){
+            //중간에 break 없이 끝까지 갔으면 소수이다.
+            if(i==j){
+                count++;
                 hap += i;
                 if(min>i)
                     min = i;
             }
         }
+
         StringBuilder sb = new StringBuilder();
         if(hap==0)
             sb.append(-1);
         else
             sb.append(hap).append('\n').append(min);
-        
+
         System.out.println(sb);
     }
 }
