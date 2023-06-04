@@ -15,7 +15,7 @@ public class Main {
             temp = 0;
             String s = Integer.toString(i);
             for(j=0; j<s.length(); j++){
-                temp+= Character.digit(s.charAt(j),10);
+                temp+= s.charAt(j)-'0';
             }
             if(i+temp==n){
                 if(result>i)
