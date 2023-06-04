@@ -18,18 +18,17 @@ public class Main {
                 temp+= s.charAt(j)-'0';
             }
             if(i+temp==n){
-                if(result>i)
+                if(result>i){
                     result = i;
+                    break;
+                }
             }
         }
 
         StringBuilder sb = new StringBuilder();
 
         if(result == n)
-            sb.append(0);
-        else
-            sb.append(result);
-
-        System.out.println(sb);
+            result = 0;
+        System.out.println(sb.append(result));
     }
 }
