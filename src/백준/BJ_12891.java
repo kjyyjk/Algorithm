@@ -7,6 +7,9 @@ import java.util.StringTokenizer;
 
 public class BJ_12891 {
 
+    static int[] checkArr;
+    static int[] myArr;
+
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,8 +22,8 @@ public class BJ_12891 {
 
         char[] dnaArr = br.readLine().toCharArray();
         char temp;
-        int[] checkArr = new int[4];
-        int[] myArr = new int[4];
+        checkArr = new int[4];
+        myArr = new int[4];
 
         st = new StringTokenizer(br.readLine(), " ");
         for(i=0; i<4; i++) {
@@ -41,7 +44,7 @@ public class BJ_12891 {
             }
         }
 
-        if(check(myArr, checkArr)) {
+        if(check()) {
             result++;
         }
 
@@ -68,7 +71,7 @@ public class BJ_12891 {
                 myArr[3]++;
             }
 
-            if(check(myArr, checkArr)) {
+            if(check()) {
                 result++;
             }
         }
@@ -76,10 +79,10 @@ public class BJ_12891 {
         System.out.println(new StringBuilder().append(result));
     }
 
-    public static boolean check(int[] my, int[] check) {
+    public static boolean check() {
 
         for(int i=0; i<4; i++) {
-            if(my[i] < check[i]) {
+            if(myArr[i] < checkArr[i]) {
                 return false;
             }
         }
