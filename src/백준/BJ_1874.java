@@ -12,34 +12,37 @@ public class BJ_1874 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
-        int n = Integer.parseInt(br.readLine());
-        int i = 1;
-        int temp;
+        int i, temp, num, popNum;
 
+        int n = Integer.parseInt(br.readLine());
         Stack<Integer> stack = new Stack<>();
 
-        while(true) {
+        num=1;
+
+        for(i=0; i<n; i++) {
             temp = Integer.parseInt(br.readLine());
 
-            while(i<=temp) {
-                stack.push(i);
-                sb.append('+').append('\n');
-                i++;
-            }
-
-            if(stack.pop()==temp) {
+            if(temp > num-1) {
+                while(temp > num-1) {
+                    stack.push(num++);
+                    sb.append('+').append('\n');
+                }
+                stack.pop();
                 sb.append('-').append('\n');
-            } else {
-                sb = new StringBuilder().append("NO");
-                break;
             }
 
-            if(i>n && stack.isEmpty()) {
-                break;
+            else {
+                if(temp < stack.pop()) {
+                    sb = new StringBuilder();
+                    sb.append("NO");
+                    break;
+                }
+                else { // 이 경우는 pop한 수가 temp랑 같을 경우. 작을 경우는 이론상 말이 안됨
+                    sb.append('-').append('\n');
+                }
             }
         }
 
         System.out.println(sb);
     }
-
 }
