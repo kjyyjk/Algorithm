@@ -12,23 +12,20 @@ public class BJ_2164 {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int i, temp;
         int n = Integer.parseInt(br.readLine());
+        int i;
 
         Queue<Integer> queue = new LinkedList<>();
 
         for(i=1; i<n+1; i++) {
-            queue.offer(i);
+            queue.add(i);
         }
 
-        while(queue.size()>1) {
+        for(i=0; i<n-1; i++) {
             queue.poll();
-            temp = queue.poll();
-            queue.offer(temp);
+            queue.add(queue.poll());
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        System.out.println(sb.append(queue.poll()));
+        System.out.println(new StringBuilder().append(queue.peek()));
     }
 }
