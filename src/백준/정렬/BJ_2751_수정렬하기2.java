@@ -1,10 +1,10 @@
-package 백준;
+package 백준.정렬;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class BJ_2751 {
+public class BJ_2751_수정렬하기2 {
     static int[] arr, tempArr;
 
     public static void main(String[] args) throws IOException {

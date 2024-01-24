@@ -1,17 +1,15 @@
-package 백준.BFS;
+package 백준.DFS_BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BJ_1260 {
+public class BJ_1260_DFS와BFS {
 
     static ArrayList<Integer>[] arr;
     static boolean[] visited;

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class BJ_1406 {
+public class BJ_1406_에디터 {
 
     public static void main(String[] args) throws IOException {
         int i;

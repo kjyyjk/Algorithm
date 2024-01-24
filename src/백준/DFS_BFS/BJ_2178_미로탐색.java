@@ -1,4 +1,4 @@
-package 백준.BFS;
+package 백준.DFS_BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BJ_2178 {
+public class BJ_2178_미로탐색 {
 
     static int[] dx = {0, 0, -1, 1}; //x인덱스 이동(상하좌우)
     static int[] dy = {-1, 1, 0, 0}; //y인덱스 이동(상하좌우)

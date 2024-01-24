@@ -1,4 +1,4 @@
-package 백준.DFS;
+package 백준.DFS_BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,52 +6,63 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class BJ_11724 {
+public class BJ_13023_ABCDE {
 
     static ArrayList<Integer>[] arr;
     static boolean[] visited;
+    static int result;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        int i, u, v;
-        int result = 0;
+        int i, a, b;
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        arr = new ArrayList[n+1];
-        visited = new boolean[n+1];
+        arr = new ArrayList[n];
+        visited = new boolean[n];
 
-        for(i=1; i<n+1; i++) {
-            arr[i] = new ArrayList<Integer>();
+        for(i=0; i<n; i++) {
+            arr[i] = new ArrayList<>();
         }
 
         for(i=0; i<m; i++) {
             st = new StringTokenizer(br.readLine(), " ");
-            u = Integer.parseInt(st.nextToken());
-            v = Integer.parseInt(st.nextToken());
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
 
-            arr[u].add(v);
-            arr[v].add(u); //양방향 에지니 양쪽에 추가하는 걸 잊지말자
+            arr[a].add(b);
+            arr[b].add(a);
         }
 
-        for(i=1; i<n+1; i++) {
-            if(visited[i] == false) {
-                result++;
-                dfs(i);
+        result = 0;
+        for(i=0; i<n; i++) {
+            dfs(i,1);
+            if (result == 1) {
+                break;
             }
         }
 
         System.out.println(new StringBuilder().append(result));
     }
 
-    static void dfs(int node) {
-        visited[node] = true;
-        for (int i : arr[node]) {
-            if(visited[i] == false) {
-                dfs(i);
-            }
+    static void dfs(int k, int cnt) {
+        visited[k] = true;
+
+        if(result == 1 || cnt == 5) {
+            result = 1;
+            return;
         }
+
+        for (int i : arr[k]) {
+            if(visited[i] == false) {
+                dfs(i, cnt+1);
+            }
+
+        }
+
+        visited[k] = false;
     }
+
 }

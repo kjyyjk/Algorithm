@@ -1,10 +1,10 @@
-package 백준;
+package 백준.정렬;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class BJ_10989 {
+public class BJ_10989_수정렬하기3 {
 
     public static void main(String[] args) throws IOException {
 

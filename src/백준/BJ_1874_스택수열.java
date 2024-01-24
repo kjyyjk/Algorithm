@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
-public class BJ_1874 {
+public class BJ_1874_스택수열 {
 
     public static void main(String[] args) throws IOException {
 

@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BJ_2164 {
+public class BJ_2164_카드게임 {
 
     public static void main(String[] args) throws IOException {
 

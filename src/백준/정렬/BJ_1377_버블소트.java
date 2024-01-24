@@ -1,11 +1,11 @@
-package 백준;
+package 백준.정렬;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class BJ_1377 {
+public class BJ_1377_버블소트 {
 
     public static void main(String[] args) throws IOException {
 

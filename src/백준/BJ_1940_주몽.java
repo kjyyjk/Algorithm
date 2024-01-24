@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BJ_1940 {
+public class BJ_1940_주몽 {
 
     public static void main(String[] args) throws IOException {
 

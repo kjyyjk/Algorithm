@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ_12891 {
+public class BJ_12891_DNA비밀번호 {
 
     static int[] checkArr;
     static int[] myArr;

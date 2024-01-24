@@ -1,4 +1,4 @@
-package 백준.DFS;
+package 백준.DFS_BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BJ_1167 {
+public class BJ_1167_트리의지름 {
 
     static ArrayList<Edge>[] arr;
     static boolean[] visited;

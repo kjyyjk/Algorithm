@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ_10986 {
+public class BJ_10986_나머지합 {
 
     public static void main(String[] args) throws IOException {
 

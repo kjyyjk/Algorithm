@@ -1,10 +1,10 @@
-package 백준;
+package 백준.정렬;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class BJ_1427 {
+public class BJ_1427_소트인사이드 {
 
     public static void main(String[] args) throws IOException {
 

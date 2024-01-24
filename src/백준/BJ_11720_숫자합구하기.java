@@ -3,9 +3,8 @@ package 백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
-public class BJ_11720 {
+public class BJ_11720_숫자합구하기 {
 
     public static void main(String[] args) throws IOException {
 

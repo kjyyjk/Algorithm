@@ -7,7 +7,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-public class BJ_11003 {
+public class BJ_11003_최솟값찾기 {
 
     static class Node {
         long ind;
