@@ -40,7 +40,7 @@ public class BJ_1325_효율적인해킹 {
         }
 
         Queue<Integer> queue;
-        for (i=1; i<n+1; i++) {
+        for (i=1; i<n+1; i++) { // bfs를 메서드로 따로 뽑지 않고 안에서 구현해야 시간복잡도 더 줄음
             queue = new LinkedList();
             visited = new boolean[n+1];
             visited[i] = true;
