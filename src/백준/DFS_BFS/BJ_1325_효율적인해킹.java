@@ -13,15 +13,16 @@ public class BJ_1325_효율적인해킹 {
     static ArrayList<Integer>[] arr;
     static boolean[] visited;
     static int[] resultArr;
+    static int n;
 
     public static void main(String[] args) throws IOException {
 
-        int i, a, b;
+        int i, a, b, m;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
         arr = new ArrayList[n+1];
         resultArr = new int[n+1];
@@ -38,12 +39,27 @@ public class BJ_1325_효율적인해킹 {
             arr[a].add(b);
         }
 
+        Queue<Integer> queue;
         for (i=1; i<n+1; i++) {
+            queue = new LinkedList();
             visited = new boolean[n+1];
-            bfs(i);
+            visited[i] = true;
+            queue.add(i);
+
+            while (!queue.isEmpty()) {
+                int nowNode = queue.poll();
+
+                for (int nextNode : arr[nowNode]) {
+                    if (!visited[nextNode]) {
+                        visited[nextNode] = true;
+                        resultArr[nextNode]++;
+                        queue.add(nextNode);
+                    }
+                }
+            }
         }
 
-        int max = 0;
+        int max = Integer.MIN_VALUE;
         for (i=1; i<n+1; i++) {
             max = Math.max(max, resultArr[i]);
         }
@@ -58,21 +74,5 @@ public class BJ_1325_효율적인해킹 {
         System.out.println(sb);
     }
 
-    static void bfs(int n) {
-        Queue<Integer> queue = new LinkedList();
-        visited[n] = true;
-        queue.add(n);
 
-        while (!queue.isEmpty()) {
-            int nowNode = queue.poll();
-
-            for (int nextNode : arr[nowNode]) {
-                if (visited[nextNode] == false) {
-                    visited[nextNode] = true;
-                    resultArr[nextNode]++;
-                    queue.add(nextNode);
-                }
-            }
-        }
-    }
 }
