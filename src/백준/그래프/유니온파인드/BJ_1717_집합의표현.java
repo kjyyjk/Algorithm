@@ -1,4 +1,4 @@
-package 백준.유니온파인드;
+package 백준.그래프.유니온파인드;
 
 import java.io.BufferedReader;
 import java.io.IOException;
