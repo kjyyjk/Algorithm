@@ -55,7 +55,7 @@ public class BJ_1854_k번째최단경로찾기 {
             if (distance[i].size() < k) {
                 kNum = -1;
             } else {
-                kNum = distance[i].peek();
+                kNum = distance[i].peek(); //k번째 비용 출력 (우선순위큐의 사이즈를 k로 유지했기에 peek)
             }
 
             sb.append(kNum).append('\n');
@@ -65,12 +65,14 @@ public class BJ_1854_k번째최단경로찾기 {
     }
 
     static void dijkstra() {
+        //최대한 모든 노드 고려하므로 우선순위큐가 필요하지는 않으나 우선순위 큐를 통해 비용이 경로를 먼저 고려하면
+        //갱신 수도 줄고, 본 queue에 저장하여 또 다른 경로를 탐색할 일이 조금이라도 줄어든다
         PriorityQueue<Node> queue = new PriorityQueue<>(new Comparator<Node>() {
             @Override
             public int compare(Node o1, Node o2) {
                 return o1.cost - o2.cost;
             }
-        }); //큐의 모든 노드 고려하므로 우선순위 필요하지는 않으나, 더 작은 값을 먼저 고려해 탐색 횟수를 줄이기 위해
+        });
         queue.add(new Node(1, 0));
         distance[1].add(0);
 
@@ -86,10 +88,12 @@ public class BJ_1854_k번째최단경로찾기 {
                 if (distance[nextNode.node].size() < k) {
                     distance[nextNode.node].add(temp);
                     queue.add(new Node(nextNode.node, temp));
-                } else {
+                } else { //k개 이상이면, k번째 작은 값과 비교해 더 작은 값으로 갱신
                     if (distance[nextNode.node].peek() > temp) {
                         distance[nextNode.node].poll();
                         distance[nextNode.node].add(temp);
+                        //갱신했을 때에만 큐에 추가. 무한반복방지.
+                        //갱신 안했을 때 추가하더라도 이 경로로 탐색하는 다른 경로도 결국 k번째 밖에 들기에 추가 x
                         queue.add(new Node(nextNode.node, temp));
                     }
                 }
