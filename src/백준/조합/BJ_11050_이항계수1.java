@@ -17,7 +17,7 @@ public class BJ_11050_이항계수1 {
         int[][] d = new int[n+1][n+1];
 
         int i, j;
-        for (i=1; i<n+1; i++) {
+/*        for (i=1; i<n+1; i++) {
             for (j=0; j<i+1; j++) {
                 if (j==0) {
                     d[i][j] = 1; //iC0 = 1
@@ -27,6 +27,12 @@ public class BJ_11050_이항계수1 {
                     d[i][j] = 1; //iCi = 1
                 }
             }
+        }*/
+
+        for (i=1; i<n+1; i++) {
+            d[i][0] = 1;
+            d[i][1] = i;
+            d[i][i] = 1;
         }
 
         for (i=2; i<n+1; i++) { //i=1 인 경우는 이미 앞에서 채움
