@@ -18,28 +18,27 @@ public class BJ_9252_LCS2 {
         int i, j;
         for (i = 1; i < s1.length() + 1; i++) {
             for (j = 1; j < s2.length() + 1; j++) {
-                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) { //같으면
                     d[i][j] = d[i - 1][j - 1] + 1;
                 } else {
-                    d[i][j] = Math.max(d[i][j - 1], d[i - 1][j]);
+                    d[i][j] = Math.max(d[i][j - 1], d[i - 1][j]); //다르면
                 }
             }
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        if (d[s1.length()][s2.length()] == 0) {
-            System.out.println(sb.append(0));
+        System.out.println(new StringBuilder().append(d[s1.length()][s2.length()]));
+        if (d[s1.length()][s2.length()] == 0) { //0이면 종료
             return;
         }
 
+        StringBuilder sb = new StringBuilder();
         i = s1.length();
         j = s2.length();
         while (sb.length() != d[s1.length()][s2.length()]) {
-            if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+            if (s1.charAt(i - 1) == s2.charAt(j - 1)) { //같으면 LCS 문자
                 sb.append(s1.charAt(i - 1));
                 i--;
-                j--;
+                j--; //대각선 왼쪽 위로
             } else {
                 if (d[i][j - 1] > d[i - 1][j]) {
                     j--;
@@ -48,7 +47,6 @@ public class BJ_9252_LCS2 {
                 }
             }
         }
-        System.out.println(new StringBuilder().append(d[s1.length()][s2.length()]));
         System.out.println(sb.reverse());
     }
 }
