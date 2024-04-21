@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ_1328_빌딩순서구하기 {
+public class BJ_1328_고층빌딩 {
 
     static long MOD = 1000000007;
 
