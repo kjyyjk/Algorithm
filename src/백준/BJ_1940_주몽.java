@@ -38,8 +38,6 @@ public class BJ_1940_주몽 {
             }
         }
 
-        new Vector<>().remove;
-
         System.out.println(new StringBuilder().append(ret));
     }
 }
