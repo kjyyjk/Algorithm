@@ -3,50 +3,43 @@ package 백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BJ_1940_주몽 {
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int n = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
-
-        int result = 0;
-        int sum;
-        int sPointer = 0;
-        int ePointer = n-1;
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
         int[] arr = new int[n];
 
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-
-        for(int i=0; i<n; i++) {
+        for (int i=0; i<n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        //오름차순 정렬 O(nlogn)
         Arrays.sort(arr);
 
+        int s = 0;
+        int e = n-1;
+        int ret = 0;
+        while (s<e) {
+            int sum = arr[s] + arr[e];
 
-        while(sPointer<ePointer) {
-            sum = arr[sPointer] + arr[ePointer];
-
-            if(sum < m) {
-                sPointer++;
-            } else if (sum > m) {
-                ePointer--;
+            if (sum == m) {
+                ret++;
+                s++;
+                e--;
+            } else if (sum < m) {
+                s++;
             } else {
-                result++;
-                sPointer++;
-                ePointer--;
+                e--;
             }
         }
 
-        System.out.println(new StringBuilder().append(result).append('\n'));
-        br.close();
+        new Vector<>().remove;
+
+        System.out.println(new StringBuilder().append(ret));
     }
 }
