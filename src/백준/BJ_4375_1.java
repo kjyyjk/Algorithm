@@ -3,7 +3,6 @@ package 백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 
 public class BJ_4375_1 {
     static int n;
@@ -14,17 +13,17 @@ public class BJ_4375_1 {
         StringBuilder sb = new StringBuilder();
         while((input = br.readLine()) != null && !input.isEmpty()) {
             n = Integer.parseInt(input);
-            sb.append(recursion(BigInteger.ONE, BigInteger.ONE)).append('\n');
+            sb.append(recursion(1, 1)).append('\n');
         }
 
         System.out.println(sb);
     }
 
-    static BigInteger recursion(BigInteger num, BigInteger size) {
-        if (num.mod(BigInteger.valueOf(n)).equals(BigInteger.ZERO)) {
+    static int recursion(long num, int size) {
+        if (num % n == 0) {
             return size;
         }
 
-        return recursion(num.multiply(BigInteger.TEN).add(BigInteger.ONE), size.add(BigInteger.ONE));
+        return recursion(((num % n) * (10 % n)) + 1, size + 1);
     }
 }
