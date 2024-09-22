@@ -9,56 +9,53 @@ import java.util.StringTokenizer;
 
 public class BJ_2178_미로탐색 {
 
-    static int[] dx = {0, 0, -1, 1}; //x인덱스 이동(상하좌우)
-    static int[] dy = {-1, 1, 0, 0}; //y인덱스 이동(상하좌우)
-    static int[][] arr;
-    static boolean[][] visited;
+    static int[] dy = {-1, 0, 1, 0};
+    static int[] dx = {0, -1, 0, 1};
+    static int[][] map;
+    static int[][] visited;
+
     static int n, m;
-
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        arr = new int[n][m];
-        visited = new boolean[n][m];
+        map = new int[n][m];
+        visited = new int[n][m];
 
-        for(int i=0; i<n; i++) {
-            char[] input = br.readLine().toCharArray();
-            for(int j=0; j<m; j++) {
-                arr[i][j] = input[j] - '0';
+        for (int i=0; i<n; i++) {
+            String[] input = br.readLine().split("");
+            for (int j=0; j<m; j++) {
+                map[i][j] = Integer.parseInt(input[j]);
             }
         }
 
-        bfs(0,0);
-
-        System.out.println(new StringBuilder().append(arr[n-1][m-1]));
+        bfs(0, 0);
+        System.out.println(new StringBuilder().append(visited[n-1][m-1]));
     }
 
-    static void bfs(int i, int j) {
+    static void bfs(int sy, int sx) {
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{i, j});
-        visited[i][j] = true;
-        arr[i][j] = 1; //시작 노드 depth 1
+        visited[sy][sx] = 1;
+        queue.add(new int[]{sy, sx});
 
         while(!queue.isEmpty()) {
-            int[] nowNode = queue.poll();
-            for(int k=0; k<4; k++) { //noNode 기준 상하좌우 노드 탐색
-                int nextX = nowNode[0] + dx[k];
-                int nextY = nowNode[1] + dy[k];
+            int[] temp = queue.poll();
+            int y = temp[0];
+            int x = temp[1];
 
-                if(nextX >= 0 && nextX < n && nextY >= 0 && nextY < m) { //범위 체크
-                    if(arr[nextX][nextY]!=0 && visited[nextX][nextY] == false) { //0이 아니고, 방문x
-                        queue.add(new int[]{nextX, nextY});
-                        visited[nextX][nextY] = true;
-                        arr[nextX][nextY] = arr[nowNode[0]][nowNode[1]] + 1; //깊이는 현재깊이 + 1
-                    }
-                }
+            for (int i=0; i<4; i++) {
+                int ny = y + dy[i];
+                int nx = x + dx[i];
+
+                if (ny < 0 || ny >=n || nx <0 || nx >= m) continue;
+                if (map[ny][nx] != 1) continue;
+                if (visited[ny][nx] != 0) continue;
+
+                queue.add(new int[]{ny, nx});
+                visited[ny][nx] = visited[y][x] + 1;
             }
         }
-
     }
 }
