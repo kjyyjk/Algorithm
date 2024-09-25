@@ -12,7 +12,6 @@ public class BJ_2583_영역구하기 {
     static int m, n;
     static int[][] a = new int[104][104];
     static boolean[][] visited = new boolean[104][104];
-    static int depth;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,33 +35,31 @@ public class BJ_2583_영역구하기 {
             }
         }
 
-        List<Integer> depths = new ArrayList<>();
+        List<Integer> ret = new ArrayList<>();
         int cnt = 0;
         for (int i=0; i<m; i++) {
             for (int j=0; j<n; j++) {
-                depth = 0;
                 if (a[i][j] == 1) continue;
                 if (visited[i][j]) continue;
-                dfs(i, j);
-                depths.add(depth);
+                ret.add(dfs(i, j));
                 cnt++;
             }
         }
 
-        Collections.sort(depths);
+        Collections.sort(ret);
         StringBuilder sb = new StringBuilder();
 
         sb.append(cnt).append('\n');
-        for (int temp : depths) {
+        for (int temp : ret) {
             sb.append(temp).append(' ');
         }
 
         System.out.println(sb);
     }
 
-    static void dfs(int y, int x) {
+    static int dfs(int y, int x) {
         visited[y][x] = true;
-        depth++;
+        int ret = 1;
 
         for (int i=0; i<4; i++) {
             int ny = y + dy[i];
@@ -72,7 +69,9 @@ public class BJ_2583_영역구하기 {
             if (a[ny][nx] == 1) continue;
             if (visited[ny][nx]) continue;
 
-            dfs(ny, nx);
+            ret += dfs(ny, nx);
         }
+
+        return ret;
     }
 }
