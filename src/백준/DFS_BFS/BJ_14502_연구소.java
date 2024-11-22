@@ -3,16 +3,19 @@ package 백준.DFS_BFS;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class BJ_14502_연구소 {
+    static int[] dy = {-1, 0, 1, 0};
+    static int[] dx = {0, -1, 0, 1};
     static int n;
     static int m;
     static int[][] map;
     static boolean[][] visited;
-    static int[] dy = {-1, 0, 1, 0};
-    static int[] dx = {0, -1, 0, 1};
-    static int cnt;
+    static List<int[]> wallList;
+    static List<int[]> virusList;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,59 +25,62 @@ public class BJ_14502_연구소 {
         m = Integer.parseInt(st.nextToken());
         map = new int[n+1][m+1];
 
-        int ret = 0;
-
-        int wallCnt = 3;
-        int virusCnt = 0;
+        wallList = new ArrayList<>();
+        virusList = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
                 int num = Integer.parseInt(st.nextToken());
                 if (num == 2) {
-                    virusCnt++;
+                    virusList.add(new int[]{i, j});
                 }
-                if (num == 1) {
-                    wallCnt++;
+                if (num == 0) {
+                    wallList.add(new int[]{i, j});
                 }
                 map[i][j] = num;
             }
         }
 
-        for (int i = 0; i < n * m; i++) {
-            if (map[i / m][(i % m)] != 0) continue;
-            map[i / m][(i % m)] = 1;
+        int ret = 0;
+        for (int i = 0; i < wallList.size(); i++) {
+            for (int j = i + 1; j < wallList.size(); j++) {
+                for (int k = j + 1; k < wallList.size(); k++) {
+                    map[wallList.get(i)[0]][wallList.get(i)[1]] = 1;
+                    map[wallList.get(j)[0]][wallList.get(j)[1]] = 1;
+                    map[wallList.get(k)[0]][wallList.get(k)[1]] = 1;
 
-            for (int j = i + 1; j < n * m; j++) {
-                if (map[j / m][(j % m)] != 0) continue;
-                map[j / m][(j % m)] = 1;
+                    ret = Math.max(ret, solve());
 
-                for (int k = j + 1; k < n * m; k++) {
-                    if (map[k / m][(k % m)] != 0) continue;
-                    map[k / m][(k % m)] = 1;
-
-                    cnt = 0;
-                    visited = new boolean[n][m];
-
-                    for (int y = 0; y < n; y++) {
-                        for (int x = 0; x < m; x++) {
-                            if (map[y][x] == 2 && !visited[y][x]) {
-                                visited[y][x] = true;
-                                dfs(y, x);
-                            }
-                        }
-                    }
-
-                    int safe = n * m - wallCnt - virusCnt - cnt;
-                    ret = Math.max(ret, safe);
-
-                    map[k / m][(k % m)] = 0;
+                    map[wallList.get(i)[0]][wallList.get(i)[1]] = 0;
+                    map[wallList.get(j)[0]][wallList.get(j)[1]] = 0;
+                    map[wallList.get(k)[0]][wallList.get(k)[1]] = 0;
                 }
-                map[j / m][(j % m)] = 0;
             }
-            map[i / m][(i % m)] = 0;
         }
 
         System.out.println(new StringBuilder().append(ret));
+    }
+
+    private static int solve() {
+        int cnt = 0;
+        visited = new boolean[n][m];
+
+        for (int i = 0; i < virusList.size(); i++) {
+            int y = virusList.get(i)[0];
+            int x = virusList.get(i)[1];
+            visited[y][x] = true;
+            dfs(y, x);
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (map[i][j] == 0 && !visited[i][j]) {
+                    cnt++;
+                }
+            }
+        }
+
+        return cnt;
     }
 
     private static void dfs(int y, int x) {
@@ -87,7 +93,6 @@ public class BJ_14502_연구소 {
             if (map[ny][nx] != 0) continue;
 
             visited[ny][nx] = true;
-            cnt++;
             dfs(ny, nx);
         }
     }
