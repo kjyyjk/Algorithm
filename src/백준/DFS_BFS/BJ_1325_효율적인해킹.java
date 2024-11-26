@@ -4,75 +4,66 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class BJ_1325_효율적인해킹 {
-
-    static ArrayList<Integer>[] arr;
     static boolean[] visited;
-    static int[] resultArr;
-    static int n;
+    static List<Integer>[] adj;
 
     public static void main(String[] args) throws IOException {
-
-        int i, a, b, m;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-        arr = new ArrayList[n+1];
-        resultArr = new int[n+1];
+        adj = new List[n+4];
 
-        for (i=1; i<n+1; i++) {
-            arr[i] = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            adj[i] = new ArrayList<>();
         }
 
-        for (i=0; i<m; i++) {
+        int a, b;
+        for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine(), " ");
             a = Integer.parseInt(st.nextToken());
             b = Integer.parseInt(st.nextToken());
-
-            arr[a].add(b);
+            adj[b].add(a);
         }
 
-        Queue<Integer> queue;
-        for (i=1; i<n+1; i++) { // bfs를 메서드로 따로 뽑지 않고 안에서 구현해야 시간복잡도 더 줄음
-            queue = new LinkedList();
-            visited = new boolean[n+1];
+        int ret = 0;
+        int cnt;
+        List<Integer> result = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            visited = new boolean[n+4];
             visited[i] = true;
-            queue.add(i);
-
-            while (!queue.isEmpty()) {
-                int nowNode = queue.poll();
-
-                for (int nextNode : arr[nowNode]) {
-                    if (!visited[nextNode]) {
-                        visited[nextNode] = true;
-                        resultArr[nextNode]++;
-                        queue.add(nextNode);
-                    }
-                }
+            cnt = dfs(i);
+            if (ret == cnt) {
+                result.add(i);
+            } else if (ret < cnt) {
+                result.clear();
+                result.add(i);
+                ret = cnt;
             }
         }
 
-        int max = Integer.MIN_VALUE;
-        for (i=1; i<n+1; i++) {
-            max = Math.max(max, resultArr[i]);
-        }
-
+        Collections.sort(result);
         StringBuilder sb = new StringBuilder();
-        for (i=1; i<n+1; i++) {
-            if (resultArr[i] == max) {
-                sb.append(i).append(' ');
-            }
+        for (int i : result) {
+            sb.append(i).append(' ');
         }
 
         System.out.println(sb);
     }
 
-
+    static int dfs(int here) {
+        int ret = 1;
+        for (int there : adj[here]) {
+            if (visited[there]) continue;
+            visited[there] = true;
+            ret += dfs(there);
+        }
+        return ret;
+    }
 }
