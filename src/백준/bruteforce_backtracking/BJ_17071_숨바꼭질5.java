@@ -7,6 +7,16 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+/**
+ * 수빈이가 동생과 만나는 것은
+ * 1. 동시에 같은 정점에 모이거나
+ * 2. 수빈이가 이미 방문한 정점을 이후에 동생이 방문한 경우. 단, 수빈이와 동생의 방문 시점이 홀-홀 이거나 짝-짝으로 일치해야한다.
+ * 그래야 수빈이가 동생이 방문할 때까지 +1, -1로 제자리 대기를 할 수 있기 때문이다.
+ *
+ * 공간 복잡도를 줄이기 위해 2차원 배열 선언. 첫번째 0은 짝수 시간, 1은 홀수 시간을 의미.
+ * bfs를 하며 만약 동생이 수빈이가 방문했던 정점에 도착하고 두 도착 시간의 짝홀이 일치하면 동생이 도착한 시간이 최소 시간.
+ * q=queue.size로 각 turn(시간) 구분
+ */
 public class BJ_17071_숨바꼭질5 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
