@@ -47,22 +47,24 @@ public class BJ_1285_동전뒤집기 {
         System.out.println(new StringBuilder().append(ret));
     }
 
-    static void go(int num) {
-        int cnt = 0;
-        for (int i = 0; i < n; i++) {
-            int sum = 0;
-            for (int j = 0; j < n; j++) {
-                if ((arr[j] & (1 << i)) != 0) {
-                    sum++;
+    static void go(int here) {
+        if (here == n) { // 모든 행의 뒤집기 상태에 대한 하나의 경우의 수가 완성되면
+            int cnt = 0; // 해당 경우 최소 T 개수
+            for (int i = 0; i < n; i++) {
+                int sum = 0;
+                for (int j = 0; j < n; j++) {
+                    if ((arr[j] & (1 << i)) != 0) {
+                        sum++;
+                    }
                 }
+                cnt += Math.min(sum, n - sum); // i열에 대해 뒤집거나 안뒤집거나의 최소 T 개수를 더한다.
             }
-            cnt += Math.min(sum, n - sum); // i열에 대해 뒤집거나 안뒤집거나의 최소 T 개수를 더한다.
+            ret = Math.min(ret, cnt);
+            return;
         }
-        ret = Math.min(ret, cnt);
-        for (int i = num; i < n; i++) { // 행을 뒤집는 모든 경우의 수
-            arr[i] = ~arr[i];
-            go(i + 1);
-            arr[i] = ~arr[i];
-        }
+        go(here + 1); // 행을 안뒤집고
+        arr[here] = ~arr[here];
+        go(here + 1); // 행을 뒤집고
+        arr[here] = ~arr[here];
     }
 }
