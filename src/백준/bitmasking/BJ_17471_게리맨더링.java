@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * 한 선거구를 비트마스킹으로 표한게 num이라면, 다른 선거구는 ~num으로 표현될 수 있다.
+ * 각 경우에 check를 통해 dfs탐색을 하며 선거구에 속한 구역 모두가 인접해있는 지를 확인한다.
+ * 만약 두 선거구 모두 조건을 만족하면 각 선거구의 인구수를 구하고 그 차이를 계산한다.
+ * 인구 수 차이를 ret 변수에 최소로 갱신한다.
+ *
+ * 두 선거구의 인구수 차이는 (전체 인구수 - (2 * 한 지역의 인구수))로 표현될 수 있다.
+ */
 public class BJ_17471_게리맨더링 {
     static int n;
     static List<Integer>[] arr;
