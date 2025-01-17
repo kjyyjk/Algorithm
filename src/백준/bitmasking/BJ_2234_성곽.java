@@ -15,12 +15,14 @@ import java.util.StringTokenizer;
  *
  * 연결 요소의 개수(방 개수) = dfs 횟수
  * 최대 방 크기 = dfs()를 통해 반환 받은 연결 요소의 depth를 최대로 갱신. depths[방번호]에 방 크기를 저장.
- * 벽을 허물어 합친 방 최대 크기 = dfs()를 한번 더 수행해 갱신된 ret3
- *
  * dfs()는 인자로 주어지는 num으로 방문한 곳의 방 번호를 표기한다.
- * 만약 다음 방향에 벽이 없으면 -> 방문했는지 여부를 체크하고 방문하지 않았으면 이어서 탐색한다.
- * 만약 벽이 있으면 -> 만약 현재 방번호와 벽 넘어의 방 번호가 다르면 -> 두 방의 크기를 합하여 ret3로 최대 갱신한다.
- * (마지막 줄은 사실상 모든 방의 번호 표기와 넓이 저장이 완료되는 첫번째 dfs 탐색 이후 두번째 dfs에서 유효하다.)
+ * 다음 방향의 벽 여부와 방문했는지 여부를 체크하고 방문하지 않았으면 이어서 탐색한다.
+ *
+ * 벽을 허물어 합친 방의 최대 크기는 방 번호 표기 과정이 끝난 뒤,
+ * 모든 구역에서 현재 방 번호와 오른쪽, 아래쪽의 방 번호가 다른 지 확인한다.
+ * 만약 방 번호가 다르다면 해당 방향의 벽을 허물어 두 방을 합칠 수 있다는 것이기에,
+ * 두 방의 크기를 더한 값을 최대로 갱신한다(ret3).
+ * 이때 배열의 인덱스를 벗어나지 않게 조심해야한다.
  */
 public class BJ_2234_성곽 {
     static int[] dy = {0, -1, 0, 1};
@@ -56,7 +58,16 @@ public class BJ_2234_성곽 {
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                dfs(i, j, visited[i][j]);
+                if (i + 1 < m) {
+                    if (visited[i][j] != visited[i + 1][j]) {
+                        ret3 = Math.max(ret3, depths[visited[i][j]] + depths[visited[i + 1][j]]);
+                    }
+                }
+                if (j + 1 < n) {
+                    if (visited[i][j] != visited[i][j + 1]) {
+                        ret3 = Math.max(ret3, depths[visited[i][j]] + depths[visited[i][j + 1]]);
+                    }
+                }
             }
         }
         StringBuilder sb = new StringBuilder();
@@ -67,17 +78,12 @@ public class BJ_2234_성곽 {
         visited[y][x] = num;
         int ret = 1;
         for (int i = 0; i < 4; i++) {
+            if ((map[y][x] & (1 << i)) != 0) continue;
             int ny = y + dy[i];
             int nx = x + dx[i];
             if (ny < 0 || ny >= m || nx < 0 || nx >= n) continue;
-            if ((map[y][x] & (1 << i)) != 0) {
-                if (num != visited[ny][nx]) {
-                    ret3 = Math.max(ret3, depths[num] + depths[visited[ny][nx]]);
-                }
-            } else {
-                if (visited[ny][nx] != 0) continue;
-                ret += dfs(ny, nx, num);
-            }
+            if (visited[ny][nx] != 0) continue;
+            ret += dfs(ny, nx, num);
         }
         return ret;
     }
