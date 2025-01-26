@@ -8,20 +8,14 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * 사이클 존재 여부와 모든 노드가 연결되어있는 지를 확인해야한다.
- *
- * 사이클 존재 여부 확인을 위해 탐색 시 직전 노드(pre)를 인자로 보관한다.
- * 만약 다음 탐색할 노드(there)가 직전 노드(pre)가 아닌데도 이미 방문한 상태라면 사이클이 존재하는 것이다.
- *
+ * 트리의 모든 노드가 연결되어있어야하고, 사이클이 존재해서는 안된다.
+ * 만약 트리에 사이클이 존재한다면 트리의 특성 중 하나인 V - 1 = E 특성이 깨지게 된다.
+ * 따라서 N - 1 = M이 성립하는 지를 확인해 사이클 존재 여부를 확인한다.
  * 모든 노드 연결 여부는 1번 노드에서의 트리 탐색이 끝난 뒤 모든 노드가 방문되었는 지를 체크한다.
- *
- * 만약 flag가 true이면 사이클이 존재하지 않고 모든 노드가 연결된 tree이며,
- * false이면 사이클이 존재하거나 모든 노드가 연결되지 않은 graph이다.
  */
 public class BJ_13244_Tree {
     static List<Integer>[] tree;
     static boolean[] visited;
-    static boolean flag;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -43,14 +37,14 @@ public class BJ_13244_Tree {
                 tree[a].add(b);
                 tree[b].add(a);
             }
-            flag = true;
-            go(0, 1);
+            go(1);
+            boolean flag = true;
             for (int i = 1; i < n + 1; i++) { // 모든 노드 연결 확인
                 if (!visited[i]) {
                     flag = false;
                 }
             }
-            if (flag) {
+            if (flag && (n - 1 == m)) {
                 sb.append("tree").append('\n');
             } else {
                 sb.append("graph").append('\n');
@@ -59,17 +53,11 @@ public class BJ_13244_Tree {
         System.out.println(sb);
     }
 
-    static void go(int pre, int here) {
+    static void go(int here) {
         visited[here] = true;
         for (int there : tree[here]) {
-            if (pre == there) { // 직전 노드이면 그냥 방문하지 않는다.
-                continue;
-            }
-            if (visited[there]) { // 직전 노드가 아닌데도 이미 방문한 상태이면 사이클이 존재하는 것이다.
-                flag = false;
-                return;
-            }
-            go(here, there);
+            if (visited[there]) continue;
+            go(there);
         }
     }
 }
