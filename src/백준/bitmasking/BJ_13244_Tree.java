@@ -3,7 +3,9 @@ package 백준.bitmasking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -22,6 +24,8 @@ public class BJ_13244_Tree {
         int t = Integer.parseInt(br.readLine());
         int n, m, a, b;
         StringBuilder sb = new StringBuilder();
+        Deque<Integer> deque = new ArrayDeque<>();
+
         for (int k = 0; k < t; k++) {
             n = Integer.parseInt(br.readLine());
             tree = new List[n + 4];
