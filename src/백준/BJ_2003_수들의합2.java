@@ -3,8 +3,6 @@ package 백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ_2003_수들의합2 {
@@ -15,36 +13,40 @@ public class BJ_2003_수들의합2 {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        Queue<Integer> queue = new LinkedList<>();
+        int[] arr = new int[n];
         st = new StringTokenizer(br.readLine());
-        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+
         int cnt = 0;
+        int start = 0;
+        int end = 0;
+        int sum = arr[start];
 
-        int firstNum = Integer.parseInt(st.nextToken());
-        queue.offer(firstNum); // 초기 값 설정
-        sum += firstNum;
-        while (st.hasMoreTokens()) {
-            if (sum == m) { // 같으면 카운트 이후 앞에서 하나 빼기
+        while (start <= end) {
+            if (sum == m) { // 같으면 카운트
                 cnt++;
-                sum -= queue.poll();
-            } else if (sum > m) { // 크면 앞에서 하나 빼기
-                sum -= queue.poll();
-            } else { // 작으면 하나 추가하기
-                int num = Integer.parseInt(st.nextToken());
-                queue.offer(num);
-                sum += num;
+                if (end == n - 1) { // 더 추가할게 없으면 종료
+                    break;
+                }
+                sum -= arr[start++];
+                sum += arr[++end];
+            } else if (sum < m) { // 작으면 추가
+                if (end == n - 1) { // 더 추가할게 없으면 종료
+                    break;
+                }
+                sum += arr[++end];
+            } else { // 크면 빼기
+                if (start == end) { // 이 분기가 없으면 start가 end보다 앞서며 반복이 일찍 끝나버림
+                    if (end == n - 1) { // 더 추가할게 없으면 종료
+                        break;
+                    }
+                    sum += arr[++end];
+                }
+                sum -= arr[start++];
             }
         }
-
-        while (!queue.isEmpty()) { // 더는 추가될 수가 없음.
-            if (sum == m) { // 같으면 카운트하고 종료
-                cnt++;
-                break;
-            } else if (sum < m) { // 작으면 종료
-                break;
-            }
-            sum -= queue.poll(); // 크면 앞에서 하나 제거
-        }
-        System.out.println(new StringBuilder().append(cnt));
+        System.out.println(cnt);
     }
 }
