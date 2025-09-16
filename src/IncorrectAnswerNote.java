@@ -7,42 +7,39 @@ import java.util.StringTokenizer;
 
 // 오답 풀이
 // 오답 날짜: 2025.09.13
-// 복습 날짜: 2025.09.14
-// 복습 회차: 1
+// 복습 날짜: 2025.09.16
+// 복습 회차: 2
 // 문제: https://www.acmicpc.net/problem/12015
 public class IncorrectAnswerNote {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int n = Integer.parseInt(br.readLine());
 
         StringTokenizer st = new StringTokenizer(br.readLine());
+        List<Integer> list = new ArrayList<>();
+        list.add(Integer.parseInt(st.nextToken()));
 
-        List<Integer> lis = new ArrayList<>();
-        lis.add(Integer.parseInt(st.nextToken()));
         while (st.hasMoreTokens()) {
             int num = Integer.parseInt(st.nextToken());
-            if (lis.get(lis.size() - 1) < num) {
-                lis.add(num);
+            if (list.get(list.size() - 1) < num) {
+                list.add(num);
             } else {
                 int left = 0;
-                int right = lis.size() - 1;
+                int right = list.size() - 1;
 
-                int ret = -1;
+                int replaceInd = -1;
                 while (left <= right) {
                     int mid = (left + right) / 2;
-                    if (lis.get(mid) >= num) {
-                        ret = mid;
+                    if (list.get(mid) >= num) {
+                        replaceInd = mid;
                         right = mid - 1;
                     } else {
                         left = mid + 1;
                     }
                 }
-
-                lis.set(ret, num);
+                list.set(replaceInd, num);
             }
         }
-
-        System.out.println(lis.size());
+        System.out.println(list.size());
     }
 }
