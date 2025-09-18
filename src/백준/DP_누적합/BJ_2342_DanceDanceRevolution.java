@@ -1,4 +1,4 @@
-package 백준.DP;
+package 백준.DP_누적합;
 
 import java.io.BufferedReader;
 import java.io.IOException;
